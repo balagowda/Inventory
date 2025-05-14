@@ -13,11 +13,7 @@ const Products = () => {
     const token = localStorage.getItem("token");
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
-
-  //console.log("Token in Local Storage:", localStorage.getItem("token"));
-  //console.log("Auth Header:", getAuthHeader());
   
-
   // Fetch products on component mount
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,7 +35,6 @@ const Products = () => {
       try {
         const response = await axios.get("http://localhost:8080/api/carts/view", {
           headers: getAuthHeader(),
-          maxRedirects: 0,
         });
 
         // Set only the cartItems array
@@ -51,6 +46,7 @@ const Products = () => {
     };
     fetchCart();
   }, []);
+  
 
   // Add to cart
   const addToCart = async (product) => {
@@ -58,7 +54,7 @@ const Products = () => {
       const response = await axios.post(
         "http://localhost:8080/api/carts/add",
         {
-          productId: product.id,
+          product,
           quantity: 1,
         },
         {
@@ -74,13 +70,13 @@ const Products = () => {
   };
 
   // Update quantity
-  const updateQuantity = async (cartItemId, productId, newQuantity) => {
+  const updateQuantity = async (cartItemId,product, newQuantity) => {
     if (newQuantity < 1) return; // Prevent quantity < 1
     try {
-      await axios.post(
-        "http://localhost:8080/api/carts/add",
+      await axios.put(
+        `http://localhost:8080/api/carts/update/${cartItemId}`,
         {
-          productId,
+          product,
           quantity: newQuantity,
         },
         {
@@ -92,6 +88,8 @@ const Products = () => {
           item.id === cartItemId ? { ...item, quantity: newQuantity } : item
         )
       );
+      console.log("Quantity updated successfully");
+      
     } catch (err) {
       setError("Failed to update quantity.");
     }
@@ -100,10 +98,12 @@ const Products = () => {
   // Remove from cart
   const removeFromCart = async (cartItemId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/carts/remove/${cartItemId}`, {
+      await axios.delete(`http://localhost:8080/api/carts/delete/${cartItemId}`, {
         headers: getAuthHeader(),
       });
       setCart((prev) => prev.filter((item) => item.id !== cartItemId));
+      console.log("Item removed from cart successfully");
+      
     } catch (err) {
       setError("Failed to remove from cart.");
     }
@@ -111,7 +111,7 @@ const Products = () => {
 
   // Helper to check if a product is in the cart
   const getCartItemForProduct = (productId) => {
-    return cart.find((item) => item.productId === productId);
+    return cart.find((item) => item.product.id === productId);
   };
 
   return (
@@ -151,15 +151,16 @@ const Products = () => {
                       <div className="quantity-controls">
                         <button
                           onClick={() =>
-                            updateQuantity(cartItem.id, product.id, cartItem.quantity - 1)
+                            updateQuantity(cartItem.id, product, cartItem.quantity - 1)
                           }
+                          disabled={cartItem.quantity <= 1}
                         >
                           -
                         </button>
                         <span>{cartItem.quantity}</span>
                         <button
                           onClick={() =>
-                            updateQuantity(cartItem.id, product.id, cartItem.quantity + 1)
+                            updateQuantity(cartItem.id, product, cartItem.quantity + 1)
                           }
                           disabled={cartItem.quantity >= product.stockQuantity}
                         >

@@ -17,9 +17,9 @@ function UserHome() {
             <h3 className="action-card-title">View Inventory</h3>
             <p className="action-card-description">Check your current stock levels and details.</p>
           </Link>
-          <Link to="/add-item" className="action-card">
-            <h3 className="action-card-title">Add Item</h3>
-           <p className="action-card-description">Add new products to your inventory seamlessly.</p>
+          <Link to="/cart" className="action-card">
+            <h3 className="action-card-title">View Cart</h3>
+           <p className="action-card-description">View Your cart items</p>
           </Link>
           <Link to="/orders" className="action-card">
             <h3 className="action-card-title">Manage Orders</h3>

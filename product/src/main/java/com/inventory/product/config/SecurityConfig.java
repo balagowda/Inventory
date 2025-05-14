@@ -20,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.inventory.product.repository.UserRepository;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -49,9 +51,9 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                         JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+                                           JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
-        	.cors(Customizer.withDefaults())
+            .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/register", "/api/login").permitAll()
@@ -60,11 +62,16 @@ public class SecurityConfig {
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
+//            .exceptionHandling(exception -> exception
+//                .authenticationEntryPoint((request, response, authException) -> {
+//                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+//                })
+//            )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
+    
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

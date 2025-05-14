@@ -28,14 +28,14 @@ public class CartController {
 
     @GetMapping("/view")
     @PreAuthorize("hasRole('CUSTOMER')")
-    public ResponseEntity<CartDTO> createCart() {
+    public ResponseEntity<CartDTO> viewCart() {
         CartDTO availableCart = cartService.getCart().get();
-        return new ResponseEntity<>(availableCart, HttpStatus.FOUND);
+        return new ResponseEntity<>(availableCart, HttpStatus.OK);
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('CUSTOMER')")
-    public ResponseEntity<CartDTO> updateCart(@Valid @RequestBody CartItemDTO itemDTO) {
+    public ResponseEntity<CartDTO> createCart(@Valid @RequestBody CartItemDTO itemDTO) {
         CartDTO updatedCart = cartService.addItemToCart(itemDTO);
         return ResponseEntity.ok(updatedCart);
     }

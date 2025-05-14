@@ -44,14 +44,14 @@ public class CartService {
         Cart cart = cartRepository.findByUserId(userId)
                 .orElseGet(() -> createNewCart(userId));
 
-        Product product = productRepository.findById(itemDTO.getProductId())
+        Product product = productRepository.findById(itemDTO.getProduct().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
         if (product.getStockQuantity() < itemDTO.getQuantity()) {
             throw new IllegalArgumentException("Insufficient stock");
         }
 
-        Optional<CartItem> existingItem = cartItemRepository.findByCartIdAndProductId(cart.getId(), itemDTO.getProductId());
+        Optional<CartItem> existingItem = cartItemRepository.findByCartIdAndProductId(cart.getId(), product.getId());
         CartItem item;
         if (existingItem.isPresent()) {
             item = existingItem.get();
@@ -144,8 +144,20 @@ public class CartService {
     private CartItemDTO toCartItemDTO(CartItem item) {
         CartItemDTO dto = new CartItemDTO();
         dto.setId(item.getId());
-        dto.setProductId(item.getProduct().getId());
         dto.setQuantity(item.getQuantity());
+        dto.setProduct(new Product());
+        Product product = item.getProduct();
+        
+        dto.getProduct().setId(product.getId());
+        dto.getProduct().setName(product.getName());
+        dto.getProduct().setPrice(product.getPrice());
+        dto.getProduct().setCategory(product.getCategory());
+        dto.getProduct().setCreatedAt(product.getCreatedAt());
+        dto.getProduct().setDescription(product.getDescription());
+        dto.getProduct().setImageUrl(product.getImageUrl());
+        dto.getProduct().setStockQuantity(product.getStockQuantity());
+        dto.getProduct().setUpdatedAt(product.getUpdatedAt());
+        
         return dto;
     }
 }

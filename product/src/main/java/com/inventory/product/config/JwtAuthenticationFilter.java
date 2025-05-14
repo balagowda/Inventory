@@ -37,7 +37,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+            try {
+                username = jwtUtil.extractUsername(jwt);
+            } catch (Exception e) {
+                logger.warn("JWT extraction failed: " + e.getMessage());
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -49,6 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                logger.warn("JWT validation failed for user: " + username);
             }
         }
 

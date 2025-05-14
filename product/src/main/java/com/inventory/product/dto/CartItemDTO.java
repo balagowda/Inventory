@@ -1,5 +1,7 @@
 package com.inventory.product.dto;
 
+import com.inventory.product.entity.Product;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -9,9 +11,8 @@ import lombok.Data;
 public class CartItemDTO {
 	private Long id;
 
-    @NotNull(message = "Product ID is required")
-    @Positive(message = "Product ID must be positive")
-    private Long productId;
+    @NotNull(message = "Product is required")
+    private Product product;
 
     @NotNull(message = "Quantity is required")
     @Min(value = 1, message = "Quantity must be at least 1")
