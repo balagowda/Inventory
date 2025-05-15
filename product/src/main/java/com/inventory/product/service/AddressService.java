@@ -93,7 +93,6 @@ public class AddressService {
     private AddressDTO toDTO(Address address) {
         AddressDTO dto = new AddressDTO();
         dto.setId(address.getId());
-        dto.setUserId(address.getUser().getId());
         dto.setStreet(address.getStreet());
         dto.setCity(address.getCity());
         dto.setState(address.getState());

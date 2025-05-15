@@ -21,9 +21,9 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/process")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<PaymentDTO> processPayment(@RequestBody Long orderId, @RequestBody String paymentMethod) {
+    @PostMapping("/process/{orderId}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<PaymentDTO> processPayment(@PathVariable Long orderId, @RequestBody String paymentMethod) {
         PaymentDTO createdPayment = paymentService.processPayment(orderId, paymentMethod);
         return new ResponseEntity<>(createdPayment, HttpStatus.CREATED);
     }

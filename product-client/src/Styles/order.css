@@ -1,0 +1,103 @@
+.order-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px; /* Adjusted to account for fixed navbar height */
+}
+
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff; /* Assuming a white background for the navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.orders-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #333;
+}
+
+.search-container {
+  margin: 20px 0;
+  width: 65%;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-row {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-left {
+  display: flex;
+  width: 75%;
+  gap: 15px;
+  align-items: center;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.order-right {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.total-price {
+  font-weight: bold;
+  font-size: 16px;
+  color: #28a745;
+}
+
+.no-orders {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin-top: 20px;
+}

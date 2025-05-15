@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Styles/cart.css'; 
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -88,9 +89,9 @@ const Cart = () => {
         <div className="cart-header">
           <h2 className="cart-title">Your Cart</h2>
           <div className="cart-total">Total: ₹{totalPrice}</div>
-          <a href="/order" className="order-button">
+          <Link to="/order/address" className="order-button">
             Order
-          </a>
+          </Link>
         </div>
         <div className="cart-container">
           {cartItems.map((item) => (

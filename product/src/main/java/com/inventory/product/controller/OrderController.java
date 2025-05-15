@@ -24,29 +24,29 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/order")
-    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/add")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<OrderDTO> createOrder(@RequestBody Long shippingId) {
         OrderDTO createdOrder = orderService.placeOrder(shippingId);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 
     @GetMapping("/byid/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<OrderDTO> getOrder(@PathVariable Long id) {
         OrderDTO order = orderService.getOrderDetails(id).get();
         return ResponseEntity.ok(order);
     }
 
-    @GetMapping("/all/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<List<OrderDTO>> updateOrder() {
         List<OrderDTO> updatedOrder = orderService.getUserOrders();
         return ResponseEntity.ok(updatedOrder);
     }
 
-    @DeleteMapping("/orders/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();

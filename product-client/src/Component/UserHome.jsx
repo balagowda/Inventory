@@ -14,16 +14,16 @@ function UserHome() {
         </p>
         <div className="action-cards">
           <Link to="/products" className="action-card">
-            <h3 className="action-card-title">View Inventory</h3>
-            <p className="action-card-description">Check your current stock levels and details.</p>
+            <h3 className="action-card-title">View Products</h3>
+            <p className="action-card-description">Find and order the products that you want.</p>
           </Link>
           <Link to="/cart" className="action-card">
             <h3 className="action-card-title">View Cart</h3>
            <p className="action-card-description">View Your cart items</p>
           </Link>
           <Link to="/orders" className="action-card">
-            <h3 className="action-card-title">Manage Orders</h3>
-            <p className="action-card-description">Track and update your order statuses.</p>
+            <h3 className="action-card-title">Your Orders</h3>
+            <p className="action-card-description">Track your order statuses.</p>
           </Link>
         </div>
       </div>

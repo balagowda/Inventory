@@ -23,6 +23,7 @@ import com.inventory.product.repository.UserRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,8 +40,8 @@ public class OrderService {
     private AddressRepository addressRepository;
 	@Autowired
     private UserRepository userRepository;
-	@Autowired
-    private CartService cartService;
+	//@Autowired
+    //private CartService cartService;
 
     // Place order
     @Transactional
@@ -73,6 +74,7 @@ public class OrderService {
         order.setStatus(Order.OrderStatus.PENDING);
         order.setShippingAddress(address);
         order.setPaymentStatus(Order.PaymentStatus.PENDING);
+        order.setOrderItems(new ArrayList<OrderItem>());
 
         // Add order items and update stock
         BigDecimal totalAmount = BigDecimal.ZERO;
@@ -97,7 +99,7 @@ public class OrderService {
         order = orderRepository.save(order);
 
         // Clear cart
-        cartService.clearCart();
+        //cartService.clearCart();
 
         return toDTO(order);
     }
@@ -146,7 +148,6 @@ public class OrderService {
     private OrderDTO toDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
-        dto.setUserId(order.getUser().getId());
         dto.setOrderDate(order.getOrderDate());
         dto.setStatus(order.getStatus().name());
         dto.setTotalAmount(order.getTotalAmount());
@@ -159,10 +160,21 @@ public class OrderService {
     private OrderItemDTO toOrderItemDTO(OrderItem item) {
         OrderItemDTO dto = new OrderItemDTO();
         dto.setId(item.getId());
-        dto.setProductId(item.getProduct().getId());
         dto.setQuantity(item.getQuantity());
         dto.setUnitPrice(item.getUnitPrice());
         dto.setSubTotal(item.getSubTotal());
+        dto.setProduct(new Product());
+        Product product = item.getProduct();
+        
+        dto.getProduct().setId(product.getId());
+        dto.getProduct().setName(product.getName());
+        dto.getProduct().setPrice(product.getPrice());
+        dto.getProduct().setCategory(product.getCategory());
+        dto.getProduct().setCreatedAt(product.getCreatedAt());
+        dto.getProduct().setDescription(product.getDescription());
+        dto.getProduct().setImageUrl(product.getImageUrl());
+        dto.getProduct().setStockQuantity(product.getStockQuantity());
+        dto.getProduct().setUpdatedAt(product.getUpdatedAt());
         return dto;
     }
 }

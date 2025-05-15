@@ -16,10 +16,6 @@ import lombok.Data;
 public class OrderDTO {
 	private Long id;
 
-    @NotNull(message = "User ID is required")
-    @Positive(message = "User ID must be positive")
-    private Long userId;
-
     @NotNull(message = "Order date is required")
     @PastOrPresent(message = "Order date cannot be in the future")
     private LocalDateTime orderDate;

@@ -10,10 +10,6 @@ import lombok.Data;
 public class AddressDTO {
     private Long id;
 
-    @NotNull(message = "User ID is required")
-    @Positive(message = "User ID must be positive")
-    private Long userId;
-
     @NotBlank(message = "Street is required")
     @Size(max = 100, message = "Street cannot exceed 100 characters")
     private String street;
