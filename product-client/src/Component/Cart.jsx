@@ -22,7 +22,7 @@ const Cart = () => {
           headers: getAuthHeader(),
         });
 
-        setCartItems(response.data.cartItems || []);
+        setCartItems(response.data?.cartItems || []);
         setLoading(false);
       } catch (err) {
         setError(err.message || 'Failed to fetch cart data');
@@ -80,12 +80,16 @@ const Cart = () => {
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
-  if (!cartItems.length) return <div className="empty-cart">Your cart is empty</div>;
+  //if (!cartItems.length) return <div className="empty-cart">Your cart is empty</div>;
 
   return (
     <div>
       <Navbar />
       <div className="container">
+        {cartItems.length === 0 ? (
+        <div className="no-orders">Nothing In Cart</div>
+      ) : (
+        <>
         <div className="cart-header">
           <h2 className="cart-title">Your Cart</h2>
           <div className="cart-total">Total: ₹{totalPrice}</div>
@@ -137,6 +141,8 @@ const Cart = () => {
             </div>
           ))}
         </div>
+        </>
+        )}
       </div>
     </div>
   );

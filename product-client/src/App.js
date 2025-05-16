@@ -11,6 +11,8 @@ import Cart from './Component/Cart';
 import Orders from './Component/Orders';
 import Address from './Component/Address';
 import Payment from './Component/Payment';
+import ProtectedRoute from './Component/ProtectedRoute';
+import NotFound from './Component/NotFound';
 
 function App() {
   return (
@@ -19,12 +21,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<UserHome />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/order/address" element={<Address />} />
-        <Route path="/order/payment" element={<Payment />} />
+        <Route path="/home" element={<ProtectedRoute><UserHome /></ProtectedRoute>} />
+        <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+        <Route path="/order/address" element={<ProtectedRoute><Address /></ProtectedRoute>} />
+        <Route path="/order/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,7 @@
 package com.inventory.product.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +31,11 @@ public class CartController {
     @GetMapping("/view")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<CartDTO> viewCart() {
-        CartDTO availableCart = cartService.getCart().get();
-        return new ResponseEntity<>(availableCart, HttpStatus.OK);
+    	Optional<CartDTO> availableCart = cartService.getCart();
+
+    	return availableCart
+    	        .map(cart -> new ResponseEntity<>(cart, HttpStatus.OK))
+    	        .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @PostMapping("/add")

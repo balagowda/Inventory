@@ -59,7 +59,7 @@ const Payment = () => {
       setFormErrors(errors);
       return;
     }
-    console.log(orderId, paymentMethod);
+    //console.log(orderId, paymentMethod);
     
     try {
       const paymentType = type[paymentMethod];

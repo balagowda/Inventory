@@ -40,8 +40,6 @@ public class OrderService {
     private AddressRepository addressRepository;
 	@Autowired
     private UserRepository userRepository;
-	//@Autowired
-    //private CartService cartService;
 
     // Place order
     @Transactional
@@ -97,9 +95,6 @@ public class OrderService {
 
         order.setTotalAmount(totalAmount);
         order = orderRepository.save(order);
-
-        // Clear cart
-        //cartService.clearCart();
 
         return toDTO(order);
     }

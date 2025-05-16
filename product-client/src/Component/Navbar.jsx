@@ -1,27 +1,43 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    fetch("http://localhost:8080/api/logout", {
-      method: "POST",
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.ok) navigate("/login");
-      })
-      .catch((err) => console.error("Logout failed:", err));
+  const getAuthHeader = () => {
+    const token = localStorage.getItem("token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
   };
+
+  const handleLogout = async() => {
+    try {
+      const response = await axios.post("http://localhost:8080/api/logout",{},{
+          headers: getAuthHeader(),
+        });
+
+      if (response.status === 200) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+      console.log("Logout successful");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+  
   return (
     <nav className="navbar">
       <div className="navbar-brand">Inventory System</div>
       <div className="profile-container">
-        <div className="profile-icon">U</div>
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
+        <Link to="/home" className="home-link">
+          Home
+        </Link>
+        <div className="profile-icon-container">
+          <div className="profile-icon">U</div>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
     </nav>
   );

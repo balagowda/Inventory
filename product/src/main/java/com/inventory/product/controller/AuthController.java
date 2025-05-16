@@ -1,6 +1,7 @@
 package com.inventory.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inventory.product.config.JwtUtil;
 import com.inventory.product.dto.AuthRequest;
 import com.inventory.product.dto.AuthResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -44,4 +47,20 @@ public class AuthController {
         // Return token as response
         return ResponseEntity.ok(new AuthResponse(token));
     }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        // Extract the Authorization header
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+
+            // For stateless JWT, simply instruct client to delete token
+            return ResponseEntity.ok("Logged out successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
+        }
+    }
+
 }

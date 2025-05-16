@@ -25,6 +25,8 @@ public class PaymentService {
     private OrderRepository orderRepository;
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+    private CartService cartService;
 
     // Process payment (placeholder for payment gateway integration)
     @Transactional
@@ -37,7 +39,7 @@ public class PaymentService {
             throw new IllegalStateException("Payment already processed");
         }
 
-        // Placeholder: Integrate with payment gateway (e.g., Stripe)
+        
         String transactionId = initiatePaymentGateway(order.getTotalAmount(), paymentMethod);
         boolean paymentSuccess = true; // Simulate payment success
 
@@ -53,7 +55,11 @@ public class PaymentService {
 
         // Update order payment status
         order.setPaymentStatus(paymentSuccess ? Order.PaymentStatus.COMPLETED : Order.PaymentStatus.FAILED);
+        order.setStatus(paymentSuccess ? Order.OrderStatus.PROCESSING : Order.OrderStatus.PENDING);
         orderRepository.save(order);
+        
+        // Clear cart
+        cartService.clearCart();
 
         return toDTO(payment);
     }

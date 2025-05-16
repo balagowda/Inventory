@@ -5,6 +5,8 @@
   color: #1f2937;
   overflow: hidden;
 }
+
+/* navbar styles */
 .navbar {
   background: linear-gradient(90deg, #2563eb, #3b82f6);
   padding: 1rem 2rem;
@@ -16,16 +18,38 @@
   top: 0;
   z-index: 1000;
 }
+
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
 }
+
 .profile-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-icon-container {
   position: relative;
   display: flex;
   align-items: center;
 }
+
+.home-link {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.home-link:hover {
+  color: #fededb;
+  text-shadow: 0 2px 8px rgba(255, 237, 219, 0.5);
+}
+
 .profile-icon {
   width: 40px;
   height: 40px;
@@ -40,10 +64,12 @@
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .profile-icon:hover {
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
 }
+
 .logout-button {
   position: absolute;
   top: 60px;
@@ -61,11 +87,15 @@
   transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   transform: translateY(-10px);
 }
-.profile-container:hover .logout-button {
+
+.profile-icon:hover + .logout-button,
+.logout-button:hover {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
+
+/* main content styles */
 .main-content {
   background: #ffffff;
   padding: 4rem 2rem;
