@@ -9,6 +9,9 @@ function Navbar() {
     return token ? { Authorization: `Bearer ${token}` } : {};
   };
 
+  const user = localStorage.getItem("role");
+  const route = user === "ADMIN" ? "/admin" : user === "CUSTOMER" ? "/home" : "/vendor";
+
   const handleLogout = async() => {
     try {
       const response = await axios.post("http://localhost:8080/api/logout",{},{
@@ -29,7 +32,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-brand">Inventory System</div>
       <div className="profile-container">
-        <Link to="/home" className="home-link">
+        <Link to={route} className="home-link">
           Home
         </Link>
         <div className="profile-icon-container">

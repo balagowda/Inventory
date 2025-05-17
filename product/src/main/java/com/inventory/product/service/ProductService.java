@@ -72,6 +72,7 @@ public class ProductService {
         dto.setPrice(product.getPrice());
         dto.setStockQuantity(product.getStockQuantity());
         dto.setCategory(product.getCategory() != null ? product.getCategory() : null);
+        dto.setProductStatus(product.getProductStatus().name());
         dto.setImageUrl(product.getImageUrl());
         return dto;
     }
@@ -82,7 +83,8 @@ public class ProductService {
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());
         product.setStockQuantity(dto.getStockQuantity());
-        // Note: Category setting requires CategoryRepository if categoryId is provided
+        product.setCategory(dto.getCategory());
+        product.setProductStatus(Product.ProductStatus.valueOf(dto.getProductStatus()));
         product.setImageUrl(dto.getImageUrl());
     }
 }

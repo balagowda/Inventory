@@ -1,0 +1,215 @@
+.transaction-container {
+  min-height: 100vh;
+  background: #f4f7fc;
+  font-family: 'Inter', sans-serif;
+}
+
+.transaction-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.transaction-header {
+  margin-bottom: 2rem;
+}
+
+.transaction-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e40af;
+  text-align: center;
+}
+
+/* Pie Chart */
+.pie-chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 3.5rem; /* Increased spacing */
+}
+
+.pie-chart-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.pie-chart-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Transaction List Styles */
+.transaction-error {
+  color: red;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.no-transactions {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+}
+
+.transaction-table-container {
+  overflow-x: auto;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.transaction-table th {
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+}
+
+.transaction-table tr:last-child td {
+  border-bottom: none;
+}
+
+.status-select {
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #1f2937;
+  background: white;
+  cursor: pointer;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.status-select:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.invoice-btn {
+  padding: 0.5rem 1rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.invoice-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Invoice Modal Styles */
+.invoice-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.invoice-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.invoice-modal h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+}
+
+.invoice-details {
+  margin-bottom: 1.5rem;
+}
+
+.invoice-details p {
+  font-size: 0.875rem;
+  color: #374151;
+  margin: 0.25rem 0;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.invoice-table th,
+.invoice-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.invoice-table th {
+  background: #f3f4f6;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.invoice-grand-total {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e40af;
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn {
+  padding: 0.75rem 1.5rem;
+  background: #d1d5db;
+  color: #1f2937;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.close-btn:hover {
+  background: #b0b7c2;
+}

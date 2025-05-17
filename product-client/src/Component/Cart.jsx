@@ -66,6 +66,8 @@ const Cart = () => {
 
   // Remove from cart
   const removeFromCart = async (cartItemId) => {
+    console.log("Removing item with ID:", cartItemId);
+    
     try {
       await axios.delete(`http://localhost:8080/api/carts/delete/${cartItemId}`, {
         headers: getAuthHeader(),
@@ -101,7 +103,7 @@ const Cart = () => {
           {cartItems.map((item) => (
             <div key={item.id} className="cart-row">
               <img
-                src={item.product.image || 'https://via.placeholder.com/100'}
+                src={item.product.imageUrl || 'https://via.placeholder.com/100'}
                 alt={item.product.name}
                 className="cart-item-image"
               />

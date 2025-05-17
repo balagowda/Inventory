@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ProductDTO {
+public class GoodsDTO {
 	private Long id;
 
     @NotBlank(message = "Name is required")
@@ -34,7 +34,7 @@ public class ProductDTO {
     private String category;
     
     @NotBlank(message = "Product status is required")
-    private String productStatus;
+    private String goodsStatus;
 
     @NotBlank(message = "Image URL is required")
     @Size(max = 200, message = "Image URL cannot exceed 200 characters")

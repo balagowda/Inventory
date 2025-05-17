@@ -25,10 +25,14 @@ const Login = () => {
     // If login is successful and token is returned
     if (response.status === 200 && response.data.token) {
       // Store token in localStorage or sessionStorage
-      localStorage.setItem("token", response.data.token);
-
+      const { token, role } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+      //console.log(role);
+      
       // Redirect to home
-      navigate("/home");
+      const route = role === "ADMIN" ? "/admin" : role === "CUSTOMER" ? "/home" : "/vendor";
+      navigate(route);
     } else {
       setError("Unexpected response from server");
     }

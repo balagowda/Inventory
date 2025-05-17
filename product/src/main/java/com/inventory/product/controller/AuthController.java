@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.inventory.product.config.JwtUtil;
 import com.inventory.product.dto.AuthRequest;
 import com.inventory.product.dto.AuthResponse;
+import com.inventory.product.entity.User;
+import com.inventory.product.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -31,6 +33,9 @@ public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         // Authenticate user credentials
@@ -41,26 +46,29 @@ public class AuthController {
         // Load user details
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 
-        // Generate token
-        String token = jwtUtil.generateToken(userDetails.getUsername());
+        // Fetch user role from repository
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        String role = user.getRole().name();
 
-        // Return token as response
-        return ResponseEntity.ok(new AuthResponse(token));
+        // Generate token with role
+        String token = jwtUtil.generateToken(userDetails.getUsername(), role);
+
+        // Return token and role as response
+        return ResponseEntity.ok(new AuthResponse(token, role));
     }
-    
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
-        // Extract the Authorization header
+        // Extract the Authorisation header
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-
-            // For stateless JWT, simply instruct client to delete token
+            // For state less JWT, simply instruct client to delete token
             return ResponseEntity.ok("Logged out successfully");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
         }
     }
-
 }

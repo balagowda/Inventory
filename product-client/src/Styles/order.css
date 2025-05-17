@@ -79,8 +79,8 @@
   flex-shrink: 0;
 }
 
-.product-image {
-  width: 50px;
+.product-image-order {
+  width: 75px;
   height: 50px;
   object-fit: cover;
   border-radius: 4px;

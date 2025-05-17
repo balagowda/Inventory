@@ -71,6 +71,6 @@ public class User {
     private List<Address> addresses;
 
     public enum Role {
-        CUSTOMER, ADMIN
+        CUSTOMER, ADMIN, VENDOR
     }
 }

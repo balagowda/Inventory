@@ -13,6 +13,13 @@ import Address from './Component/Address';
 import Payment from './Component/Payment';
 import ProtectedRoute from './Component/ProtectedRoute';
 import NotFound from './Component/NotFound';
+import Admin from './Component/Admin';
+import Inventory from './Component/Inventory';
+import Transaction from './Component/Transaction';
+import ProtectedAdminRoute from './Component/ProctedAdminRoute';
+import Vendor from './Component/Vendor';
+import Goods from './Component/Goods';
+import AddProduct from './Component/AddProduct';
 
 function App() {
   return (
@@ -27,6 +34,12 @@ function App() {
         <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="/order/address" element={<ProtectedRoute><Address /></ProtectedRoute>} />
         <Route path="/order/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedAdminRoute><Admin /></ProtectedAdminRoute>} />
+        <Route path="/inventory" element={<ProtectedAdminRoute><Inventory /></ProtectedAdminRoute>} />
+        <Route path="/transaction" element={<ProtectedAdminRoute><Transaction /></ProtectedAdminRoute>} />
+        <Route path="/vendor" element={<Vendor />} />
+        <Route path="/vendor/goods" element={<Goods />} />
+        <Route path="/vendor/add" element={<AddProduct />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -32,7 +32,7 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setFullName(userDTO.getFullName());
-        user.setRole(User.Role.CUSTOMER);
+        user.setRole(userDTO.getRole().equals("Customer") ? User.Role.CUSTOMER:User.Role.VENDOR);
         user.setPhoneNumber(userDTO.getPhoneNumber());
 
         user = userRepository.save(user);

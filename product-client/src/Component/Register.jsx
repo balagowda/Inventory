@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Styles/auth.css";
+import axios from "axios";
 
 function Register() {
   const [formData, setFormData] = React.useState({
@@ -9,11 +10,10 @@ function Register() {
     phoneNumber: "",
     username: "",
     password: "",
-    role:"Customer"
+    role: "Customer"
   });
   const [errors, setErrors] = React.useState({});
   const navigator = useNavigate();
-
 
   const validateForm = () => {
     const newErrors = {};
@@ -65,42 +65,65 @@ function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      fetch("http://localhost:8080/api/register", {
-        method: "POST",
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  //console.log("Form data:", formData);
+  
+  if (validateForm()) {
+    
+    try {
+      const response = await axios.post("http://localhost:8080/api/register", formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", 
-        body: JSON.stringify(formData),
-      })
-        .then((res) => {
-          if (res.ok) {
-            alert("Registration successful");
-            navigator("/login");
-          } else {
-            alert("Registration failed");
-          }
-        })
-        .catch((err) => {
-          console.error("Error:", err);
-        });
+      });
+      
+      if (response.status === 200 || response.status === 201) {
+        alert("Registration successful");
+        navigator("/login");
+      } else {
+        alert("Registration failed");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Registration failed");
     }
-  };
+  }
+};
 
   return (
     <div className="auth-container">
       <div className="auth-card">
         <h2 className="auth-title">Register</h2>
         <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="role-selection">
+            <label className="role-label">
+              <input
+                type="radio"
+                name="role"
+                value="Customer"
+                checked={formData.role === "Customer"}
+                onChange={handleChange}
+              />
+              Customer
+            </label>
+            <label className="role-label">
+              <input
+                type="radio"
+                name="role"
+                value="Vendor"
+                checked={formData.role === "Vendor"}
+                onChange={handleChange}
+              />
+              Vendor
+            </label>
+          </div>
           <div>
             <input
               type="text"
               name="fullName"
               placeholder="Full Name"
-              className={`auth-input ${errors.fullName ? "error" : ""}`}
+              className={`auth-input ${errors.fullName ? "error-auth" : ""}`}
               value={formData.fullName}
               onChange={handleChange}
             />
@@ -113,7 +136,7 @@ function Register() {
               type="email"
               name="email"
               placeholder="Email"
-              className={`auth-input ${errors.email ? "error" : ""}`}
+              className={`auth-input ${errors.email ? "error-auth" : ""}`}
               value={formData.email}
               onChange={handleChange}
             />
@@ -124,18 +147,18 @@ function Register() {
               type="text"
               name="phoneNumber"
               placeholder="Phone number"
-              className={`auth-input ${errors.phone ? "error" : ""}`}
+              className={`auth-input ${errors.phoneNumber ? "error-auth" : ""}`}
               value={formData.phoneNumber}
               onChange={handleChange}
             />
-            {errors.phone && <p className="error-message">{errors.phone}</p>}
+            {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}</p>}
           </div>
           <div>
             <input
               type="text"
               name="username"
               placeholder="Username"
-              className={`auth-input ${errors.username ? "error" : ""}`}
+              className={`auth-input ${errors.username ? "error-auth" : ""}`}
               value={formData.username}
               onChange={handleChange}
             />
@@ -148,7 +171,7 @@ function Register() {
               type="password"
               name="password"
               placeholder="Password"
-              className={`auth-input ${errors.password ? "error" : ""}`}
+              className={`auth-input ${errors.password ? "error-auth" : ""}`}
               value={formData.password}
               onChange={handleChange}
             />

@@ -130,6 +130,11 @@ public class OrderService {
             return toDTO(order);
         });
     }
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<OrderDTO> getAllOrders(){
+    	return orderRepository.findAll().stream().map(this::toDTO).toList();
+    }
 
     // Get current user ID
     private Long getCurrentUserId() {
@@ -143,6 +148,7 @@ public class OrderService {
     private OrderDTO toDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
+        dto.setUserId(order.getUser().getId());
         dto.setOrderDate(order.getOrderDate());
         dto.setStatus(order.getStatus().name());
         dto.setTotalAmount(order.getTotalAmount());
@@ -169,6 +175,7 @@ public class OrderService {
         dto.getProduct().setDescription(product.getDescription());
         dto.getProduct().setImageUrl(product.getImageUrl());
         dto.getProduct().setStockQuantity(product.getStockQuantity());
+        dto.getProduct().setProductStatus(product.getProductStatus());
         dto.getProduct().setUpdatedAt(product.getUpdatedAt());
         return dto;
     }

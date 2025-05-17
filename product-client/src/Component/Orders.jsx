@@ -100,7 +100,7 @@ const Order = () => {
                           key={item.id}
                           src={item.product.imageUrl}
                           alt={item.product.name}
-                          className="product-image"
+                          className="product-image-order"
                         />
                       ))}
                     </div>
@@ -136,7 +136,7 @@ const Order = () => {
                         <img
                           src={item.product.imageUrl}
                           alt={item.product.name}
-                          className="product-image"
+                          className="product-image-order"
                         />
                         <div className="item-details">
                           <span className="product-name">{item.product.name}</span>
