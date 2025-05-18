@@ -1,21 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import Navbar from './Navbar';
-import '../Styles/transaction.css';
+import Navbar from '../Navbar';
+import '../../Styles/transaction.css';
 
-// Register Chart.js components
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-const Transaction = () => {
+const GoodsTransactions = () => {
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState(null);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [orderItems, setOrderItems] = useState([]);
   const [statusUpdating, setStatusUpdating] = useState({});
-  const [categoryData, setCategoryData] = useState({ labels: [], datasets: [] });
-  const chartRef = useRef(null);
 
   const getAuthHeader = () => {
     const token = localStorage.getItem('token');
@@ -26,55 +19,19 @@ const Transaction = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/orders/catalog', {
+        const response = await axios.get('/api/orders/vendor', {
           headers: getAuthHeader(),
         });
         const transactionsData = response.data;
+        
         setTransactions(transactionsData);
 
-        // Calculate subtotals by category
-        const categoryMap = {};
-        transactionsData.forEach((transaction) => {
-          transaction.orderItems.forEach((item) => {
-            const category = item.product.category || 'Unknown';
-            const subtotal = item.total || item.quantity * item.unitPrice;
-            categoryMap[category] = (categoryMap[category] || 0) + subtotal;
-          });
-        });
-
-        // Prepare pie chart data
-        const labels = Object.keys(categoryMap);
-        const data = Object.values(categoryMap);
-        const colors = [
-          '#2563eb', '#1d4ed8', '#3b82f6', '#60a5fa', '#93c5fd',
-          '#1e40af', '#1e3a8a', '#dbeafe', '#bfdbfe', '#eff6ff'
-        ].slice(0, labels.length);
-
-        setCategoryData({
-          labels,
-          datasets: [
-            {
-              data,
-              backgroundColor: colors,
-              borderColor: colors.map(color => color.replace('fa', 'ff')),
-              borderWidth: 1,
-            },
-          ],
-        });
       } catch (err) {
         setError('Failed to load transactions.');
       }
     };
     fetchTransactions();
-
-    // Cleanup chart on unmount
-    return () => {
-      if (chartRef.current) {
-        chartRef.current.destroy();
-        chartRef.current = null;
-      }
-    };
-  }, []);
+  }, []); // <-- Add this line to close useEffect
 
   // Update transaction status
   const updateStatus = async (transactionId, newStatus) => {
@@ -84,7 +41,7 @@ const Transaction = () => {
     
     try {
       await axios.put(
-        `http://localhost:8080/api/orders/update/${transactionId}`,
+        `/api/orders/vendorupdate/${transactionId}`,
         newStatus ,
         {
          headers: {
@@ -93,6 +50,7 @@ const Transaction = () => {
           }
         }
       );
+      
       setTransactions((prev) =>
         prev.map((t) =>
           t.id === transactionId ? { ...t, status: newStatus } : t
@@ -135,54 +93,13 @@ const Transaction = () => {
     });
   };
 
-  // Pie chart options
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'left',
-        labels: {
-          font: { size: 16, family: 'Inter' },
-          color: '#1f2937',
-           padding: 20,
-        },
-      },
-      tooltip: {
-        backgroundColor: '#1f2937',
-        titleFont: { size: 14, family: 'Inter' },
-        bodyFont: { size: 12, family: 'Inter' },
-        padding: 15,
-        callbacks: {
-          label: (context) => `₹${context.parsed.toFixed(2)}`,
-        },
-      },
-    },
-  };
-
   return (
     <div className="transaction-container">
       <Navbar />
       <div className="transaction-content">
         <div className="transaction-header">
-          <h1 className="transaction-title">Inventory System - Transactions</h1>
+          <h1 className="transaction-title">Inventory System - Vendor Transactions</h1>
         </div>
-        {categoryData.labels.length > 0 && (
-          <div className="pie-chart-container">
-            <h2 className="pie-chart-title">Sales by Product Category</h2>
-            <div className="pie-chart-wrapper">
-              <Pie
-                data={categoryData}
-                options={chartOptions}
-                ref={(el) => {
-                  if (el && el.chartInstance) {
-                    chartRef.current = el.chartInstance;
-                  }
-                }}
-              />
-            </div>
-          </div>
-        )}
         {error && <p className="transaction-error">{error}</p>}
         {transactions.length === 0 && !error && (
           <div className="no-transactions">
@@ -260,7 +177,7 @@ const Transaction = () => {
                 <tbody>
                   {orderItems.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.product.name}</td>
+                      <td>{item.goods.name}</td>
                       <td>{item.quantity}</td>
                       <td>₹{item.unitPrice.toFixed(2)}</td>
                       <td>₹{(item.quantity * item.unitPrice).toFixed(2)}</td>
@@ -280,8 +197,8 @@ const Transaction = () => {
           </div>
         )}
       </div>
-    </div>
+      </div>
   );
 };
 
-export default Transaction;
+export default GoodsTransactions;

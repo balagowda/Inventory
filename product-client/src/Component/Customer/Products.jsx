@@ -1,7 +1,7 @@
-import "../Styles/products.css"; 
+import "../../Styles/products.css"; 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "./Navbar"; 
+import Navbar from "../Navbar"; 
 import { Link } from "react-router-dom";
 
 const Products = () => {
@@ -20,7 +20,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/products/catalog", {
+        const response = await axios.get("/api/products/catalog", {
           headers: getAuthHeader(),
         });
         setProducts(response.data);
@@ -35,7 +35,7 @@ const Products = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/carts/view", {
+        const response = await axios.get("/api/carts/view", {
           headers: getAuthHeader(),
         });
 
@@ -54,7 +54,7 @@ const Products = () => {
   const addToCart = async (product) => {
   try {
     await axios.post(
-      "http://localhost:8080/api/carts/add",
+      "/api/carts/add",
       {
         product,
         quantity: 1,
@@ -65,7 +65,7 @@ const Products = () => {
     );
 
     // Re-fetch cart to get updated list
-    const cartResponse = await axios.get("http://localhost:8080/api/carts/view", {
+    const cartResponse = await axios.get("/api/carts/view", {
       headers: getAuthHeader(),
     });
     setCart(cartResponse.data.cartItems);
@@ -79,7 +79,7 @@ const Products = () => {
     if (newQuantity < 1) return; // Prevent quantity < 1
     try {
       await axios.put(
-        `http://localhost:8080/api/carts/update/${cartItemId}`,
+        `/api/carts/update/${cartItemId}`,
         {
           product,
           quantity: newQuantity,
@@ -103,7 +103,7 @@ const Products = () => {
   // Remove from cart
   const removeFromCart = async (cartItemId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/carts/delete/${cartItemId}`, {
+      await axios.delete(`/api/carts/delete/${cartItemId}`, {
         headers: getAuthHeader(),
       });
       setCart((prev) => prev.filter((item) => item.id !== cartItemId));
@@ -135,7 +135,7 @@ const Products = () => {
           <div className="title-wrapper">
             <h1 className="products-title">Products</h1>
           </div>
-          <Link to="/cart" className="cart-link-btn">
+          <Link to="/user/cart" className="cart-link-btn">
             View Cart
           </Link>
         </div>

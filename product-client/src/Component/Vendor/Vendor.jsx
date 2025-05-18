@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 
 const Vendor = () => {  
   return (
@@ -15,7 +15,7 @@ const Vendor = () => {
             <h3 className="action-card-title">View Goods</h3>
             <p className="action-card-description">View and manage the inventory products.</p>
           </Link>
-          <Link to="/vendor/add" className="action-card">
+          <Link to="/vendor/addproduct" className="action-card">
             <h3 className="action-card-title">Add Goods</h3>
            <p className="action-card-description">Add more products to sell</p>
           </Link>

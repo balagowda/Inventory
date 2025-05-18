@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 import { Link } from 'react-router-dom';
 
 const Admin = () => {
@@ -12,15 +12,15 @@ const Admin = () => {
           Take control of your inventory with our cutting-edge management tools. Explore the features below to get started.
         </p>
         <div className="action-cards">
-          <Link to="/inventory" className="action-card">
+          <Link to="/admin/inventory" className="action-card">
             <h3 className="action-card-title">View Inventory</h3>
             <p className="action-card-description">View and manage the inventory products.</p>
           </Link>
-          <Link to="/cart" className="action-card">
+          <Link to="/admin/buy" className="action-card">
             <h3 className="action-card-title">Buy From Vendors</h3>
            <p className="action-card-description">Get product from vendors</p>
           </Link>
-          <Link to="/transaction" className="action-card">
+          <Link to="/admin/transaction" className="action-card">
             <h3 className="action-card-title">View Transactions</h3>
             <p className="action-card-description">Track your inventory transaction statuses.</p>
           </Link>

@@ -29,7 +29,7 @@ const Address = () => {
     const fetchAddresses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/address/catalog",
+          "/api/address/catalog",
           {
             headers: getAuthHeader(),
           }
@@ -63,7 +63,7 @@ const Address = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/orders/add",
+        "/api/orders/add",
         selectedAddress,
         {
           headers: {
@@ -105,7 +105,7 @@ const Address = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/address/add",
+        "/api/address/add",
         {
           street: formData.street,
           city: formData.city,

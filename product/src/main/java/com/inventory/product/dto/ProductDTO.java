@@ -12,6 +12,9 @@ import lombok.Data;
 @Data
 public class ProductDTO {
 	private Long id;
+	
+	@NotNull(message="Vendor Id is required")
+	private Long vendorId;
 
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name cannot exceed 100 characters")

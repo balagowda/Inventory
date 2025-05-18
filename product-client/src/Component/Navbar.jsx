@@ -10,11 +10,11 @@ function Navbar() {
   };
 
   const user = localStorage.getItem("role");
-  const route = user === "ADMIN" ? "/admin" : user === "CUSTOMER" ? "/home" : "/vendor";
+  const route = user === "ADMIN" ? "/admin" : user === "CUSTOMER" ? "/user" : "/vendor";
 
   const handleLogout = async() => {
     try {
-      const response = await axios.post("http://localhost:8080/api/logout",{},{
+      const response = await axios.post("/api/logout",{},{
           headers: getAuthHeader(),
         });
 

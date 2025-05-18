@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import '../Styles/order.css';
+import Navbar from '../Navbar';
+import '../../Styles/order.css';
 import axios from 'axios';
 
 const Order = () => {
@@ -18,7 +18,7 @@ const Order = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/orders/all', {
+        const response = await axios.get('/api/orders/all', {
           headers: getAuthHeader(),
         });
 

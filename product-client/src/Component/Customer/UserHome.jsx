@@ -1,6 +1,6 @@
 import React from 'react';
-import '../Styles/userhome.css';
-import Navbar from './Navbar';
+import '../../Styles/userhome.css';
+import Navbar from '../Navbar';
 import { Link } from "react-router-dom";
 
 function UserHome() {
@@ -13,15 +13,15 @@ function UserHome() {
           Take control of your inventory with our cutting-edge management tools. Explore the features below to get started.
         </p>
         <div className="action-cards">
-          <Link to="/products" className="action-card">
+          <Link to="/user/products" className="action-card">
             <h3 className="action-card-title">View Products</h3>
             <p className="action-card-description">Find and order the products that you want.</p>
           </Link>
-          <Link to="/cart" className="action-card">
+          <Link to="/user/cart" className="action-card">
             <h3 className="action-card-title">View Cart</h3>
            <p className="action-card-description">View Your cart items</p>
           </Link>
-          <Link to="/orders" className="action-card">
+          <Link to="/user/orders" className="action-card">
             <h3 className="action-card-title">Your Orders</h3>
             <p className="action-card-description">Track your order statuses.</p>
           </Link>

@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import "../Styles/inventory.css"; 
+import Navbar from "../Navbar";
+import "../../Styles/inventory.css"; 
 
-
-const Inventory = () => {
+const Goods = () => {
   const [products, setProducts] = useState([]); // Product list from backend
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -22,7 +21,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/products/catalog", {
+        const response = await axios.get("/api/goods/catalog", {
           headers: getAuthHeader(),
         });
         setProducts(response.data);
@@ -50,7 +49,7 @@ const Inventory = () => {
       price: product.price,
       stockQuantity: product.stockQuantity,
       category: product.category,
-      productStatus: product.productStatus,
+      productStatus: product.goodsStatus,
       imageUrl: product.imageUrl,
     });
     setFormErrors({});
@@ -120,8 +119,8 @@ const Inventory = () => {
         ...selectedProduct,
         ...formData,
       };
-
-      await axios.put(`http://localhost:8080/api/products/update/${selectedProduct.id}`, updatedProduct, {
+      
+      await axios.put(`/api/goods/update/${selectedProduct.id}`, updatedProduct, {
         headers: getAuthHeader(),
       });
 
@@ -144,7 +143,7 @@ const Inventory = () => {
       <div className="products-content">
         <div className="products-header">
           <div className="title-wrapper">
-            <h1 className="products-title">Products</h1>
+            <h1 className="products-title">Vendor Goods</h1>
           </div>
         </div>
         <div className="search-container">
@@ -159,7 +158,7 @@ const Inventory = () => {
         {error && <p className="product-error">{error}</p>}
         {filteredProducts.length === 0 && !error && (
           <div className="no-products">
-            <p>No such product found</p>
+            <p>No such goods found</p>
           </div>
         )}
         {filteredProducts.length > 0 && (
@@ -168,7 +167,7 @@ const Inventory = () => {
               <div key={product.id} className="product-card">
                 <img
                   src={product.imageUrl}
-                  alt={product.name}
+                  alt={product.goods_name}
                   className="product-image"
                   onError={(e) => {
                     e.target.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s";
@@ -184,7 +183,6 @@ const Inventory = () => {
                   <button
                     className="add-to-cart-btn update-prod-btn"
                     onClick={() => openUpdateModal(product)}
-                    disabled={product.stockQuantity === 0}
                   >
                     Update
                   </button>
@@ -297,4 +295,4 @@ const Inventory = () => {
   );
 };
 
-export default Inventory;
+export default Goods;

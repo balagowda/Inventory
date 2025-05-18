@@ -1,25 +1,27 @@
 // Importing necessary modules and components
 import React from 'react';
-import Home from './Component/Home';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './Component/Home';
 import Login from './Component/Login';
 import Register from './Component/Register';
-import UserHome from './Component/UserHome';
-import Products from './Component/Products';
-import Cart from './Component/Cart';
-import Orders from './Component/Orders';
+import UserHome from './Component/Customer/UserHome';
+import Products from './Component/Customer/Products';
+import Cart from './Component/Customer/Cart';
+import Orders from './Component/Customer/Orders';
 import Address from './Component/Address';
 import Payment from './Component/Payment';
-import ProtectedRoute from './Component/ProtectedRoute';
 import NotFound from './Component/NotFound';
-import Admin from './Component/Admin';
-import Inventory from './Component/Inventory';
-import Transaction from './Component/Transaction';
-import ProtectedAdminRoute from './Component/ProctedAdminRoute';
-import Vendor from './Component/Vendor';
-import Goods from './Component/Goods';
-import AddProduct from './Component/AddProduct';
+import ProtectedRoute from './Component/ProtectedRoute';
+import ProtectedAdminRoute from './Component/Admin/ProctedAdminRoute';
+import Admin from './Component/Admin/Admin';
+import Inventory from './Component/Admin/Inventory';
+import Transaction from './Component/Admin/Transaction';
+import Vendor from './Component/Vendor/Vendor';
+import Goods from './Component/Vendor/Goods';
+import AddProduct from './Component/Vendor/AddProduct';
+import GoodsTransactions from './Component/Vendor/GoodsTransactions';
+import BuyfromVendors from './Component/Admin/BuyfromVendors';
 
 function App() {
   return (
@@ -28,18 +30,20 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<ProtectedRoute><UserHome /></ProtectedRoute>} />
-        <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
-        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-        <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-        <Route path="/order/address" element={<ProtectedRoute><Address /></ProtectedRoute>} />
-        <Route path="/order/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+        <Route path="/user" element={<ProtectedRoute><UserHome /></ProtectedRoute>} />
+        <Route path="/user/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
+        <Route path="/user/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/user/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+        <Route path="/user/order/address" element={<ProtectedRoute><Address /></ProtectedRoute>} />
+        <Route path="/user/order/payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedAdminRoute><Admin /></ProtectedAdminRoute>} />
-        <Route path="/inventory" element={<ProtectedAdminRoute><Inventory /></ProtectedAdminRoute>} />
-        <Route path="/transaction" element={<ProtectedAdminRoute><Transaction /></ProtectedAdminRoute>} />
-        <Route path="/vendor" element={<Vendor />} />
-        <Route path="/vendor/goods" element={<Goods />} />
-        <Route path="/vendor/add" element={<AddProduct />} />
+        <Route path="/admin/inventory" element={<ProtectedAdminRoute><Inventory /></ProtectedAdminRoute>} />
+        <Route path="/admin/transaction" element={<ProtectedAdminRoute><Transaction /></ProtectedAdminRoute>} />
+        <Route path="/admin/buy" element={<ProtectedAdminRoute><BuyfromVendors /></ProtectedAdminRoute>} />
+        <Route path="/vendor" element={<ProtectedRoute><Vendor /></ProtectedRoute>} />
+        <Route path="/vendor/goods" element={<ProtectedRoute><Goods /></ProtectedRoute>} />
+        <Route path="/vendor/addproduct" element={<ProtectedRoute><AddProduct /></ProtectedRoute>} />
+        <Route path="/vendor/transaction" element={<ProtectedRoute><GoodsTransactions /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

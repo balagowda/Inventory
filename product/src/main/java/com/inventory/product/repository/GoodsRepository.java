@@ -19,8 +19,8 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
             @Param("searchTerm") String searchTerm);
 
     // Find products by category ID
-    List<Goods> findByCategoryContainingIgnoreCase(String category);
+    List<Goods> findByVendorId(Long vendorId);
 
-    // Find products with low stock (for admin alerts)
+    // Find products with low stock (for alerts)
     List<Goods> findByStockQuantityLessThan(Integer threshold);
 }

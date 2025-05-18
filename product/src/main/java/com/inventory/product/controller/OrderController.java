@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inventory.product.dto.BuyItemDTO;
+import com.inventory.product.dto.BuyOrderDTO;
 import com.inventory.product.dto.OrderDTO;
+import com.inventory.product.entity.BuyOrder;
 import com.inventory.product.entity.Order;
 import com.inventory.product.service.OrderService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -44,17 +49,47 @@ public class OrderController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasAnyRole('CUSTOMER','VENDOR')")
     public ResponseEntity<List<OrderDTO>> getUserOrder() {
         List<OrderDTO> updatedOrder = orderService.getUserOrders();
         return ResponseEntity.ok(updatedOrder);
     }
     
+    @PostMapping("/buyorder/{vendorId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<BuyOrderDTO> buyOrder(@PathVariable Long  vendorId, @Valid @RequestBody List<BuyItemDTO> orderItems){
+    	BuyOrderDTO createdBuyOrder = orderService.buyOrder(vendorId, orderItems);
+    	return new ResponseEntity<>(createdBuyOrder, HttpStatus.CREATED);
+    }
+    
     @GetMapping("/catalog")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<OrderDTO>> getAllOrder() {
-        List<OrderDTO> updatedOrder = orderService.getAllOrders();
-        return ResponseEntity.ok(updatedOrder);
+        List<OrderDTO> getOrder = orderService.getAllOrders();
+        return ResponseEntity.ok(getOrder);
+    }
+    
+    @GetMapping("/buyorder")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<BuyOrderDTO>> getAllBuyOrder() {
+        List<BuyOrderDTO> buyOrder = orderService.getAllBuyOrders();
+        return ResponseEntity.ok(buyOrder);
+    }
+    
+    @GetMapping("/vendor")
+    @PreAuthorize("hasRole('VENDOR')")
+    public ResponseEntity<List<BuyOrderDTO>> getAllVendorOrder() {
+        List<BuyOrderDTO> vendorOrder = orderService.getAllVendorOrders();
+        return ResponseEntity.ok(vendorOrder);
+    }
+    
+    @PutMapping("/vendorupdate/{id}")
+    @PreAuthorize("hasRole('VENDOR')")
+    public ResponseEntity<BuyOrderDTO> updateVendorOrderStatus(@PathVariable Long id, @RequestBody String status) {
+        Optional<BuyOrderDTO> updatedOrder = orderService.updateVendorOrderStatus(id,BuyOrder.BuyOrderStatus.valueOf(status));
+        return updatedOrder
+                .map(order -> new ResponseEntity<>(order, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
     
     @PutMapping("/update/{id}")

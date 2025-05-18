@@ -1,0 +1,256 @@
+/* Buy Vendor Container */
+.buy-vendor-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7fafc 0%, #e6f0fa 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 0;
+}
+
+/* Buy Vendor Content */
+.buy-vendor-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Buy Vendor Header */
+.buy-vendor-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.buy-vendor-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e40af;
+  letter-spacing: -0.025em;
+}
+
+/* Vendor Selection Section */
+.vendor-selection-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 400px;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.vendor-select {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #1f2937;
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.vendor-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.vendor-select:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+/* Loading Text */
+.loading-text {
+  text-align: center;
+  font-size: 1rem;
+  color: #4b5563;
+  margin: 2rem 0;
+}
+
+/* Products List */
+.products-list {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.products-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Products Table */
+.products-table-container {
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.products-table th,
+.products-table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: #1f2937;
+}
+
+.products-table th {
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.products-table th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.products-table th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.products-table td {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.products-table tr:last-child td {
+  border-bottom: none;
+}
+
+.products-table tr:hover {
+  background: #f9fafb;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Quantity Input */
+.quantity-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.quantity-input input {
+  width: 80px;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #1f2937;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quantity-input input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input-error {
+  border-color: #dc2626 !important;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Buy Button */
+.buy-btn {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.75rem 2rem;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.buy-btn:hover {
+  background: #1e3a8a;
+  transform: translateY(-2px);
+}
+
+.buy-btn:active {
+  transform: translateY(0);
+}
+
+.buy-btn:disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+}
+
+/* API Error */
+.api-error {
+  color: #dc2626;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 1.5rem 0;
+  background: #fee2e2;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .buy-vendor-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .buy-vendor-title {
+    font-size: 1.75rem;
+  }
+
+  .vendor-selection-section {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    max-width: 100%;
+  }
+
+  .products-table th,
+  .products-table td {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .product-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .quantity-input input {
+    width: 60px;
+  }
+}

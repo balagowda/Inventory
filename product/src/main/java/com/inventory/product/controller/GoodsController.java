@@ -54,11 +54,18 @@ public class GoodsController {
     	goodsService.deleteGoods(id);
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/vendor/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<GoodsDTO>> getByVendor(@PathVariable Long id){
+    	List<GoodsDTO> goods = goodsService.getByVendorId(id);
+    	return ResponseEntity.ok(goods);
+    }
 
     @GetMapping("/catalog")
-    @PreAuthorize("hasAnyRole('VENDOR', 'ADMIN')")
-    public ResponseEntity<List<GoodsDTO>> getAllProducts(String searchTerm, String categoryName) {
-        List<GoodsDTO> goods = goodsService.getAllGoods(searchTerm,categoryName);
+    @PreAuthorize("hasAnyRole('VENDOR')")
+    public ResponseEntity<List<GoodsDTO>> getAllProducts() {
+        List<GoodsDTO> goods = goodsService.getAllGoods();
         return ResponseEntity.ok(goods);
     }
 }

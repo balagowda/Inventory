@@ -64,7 +64,7 @@ const Payment = () => {
     try {
       const paymentType = type[paymentMethod];
       const response = await axios.post(
-        `http://localhost:8080/api/payments/process/${orderId}`,
+        `/api/payments/process/${orderId}`,
         paymentType,
         {
           headers: {

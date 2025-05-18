@@ -6,29 +6,34 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inventory.product.dto.GoodsDTO;
 import com.inventory.product.entity.Goods;
+import com.inventory.product.entity.User;
 import com.inventory.product.repository.GoodsRepository;
+import com.inventory.product.repository.UserRepository;
 
 @Service
 public class GoodsService {
 	@Autowired
     private GoodsRepository goodsRepository;
+	@Autowired
+    private UserRepository userRepository;
 
     // Get all products (public)
-    public List<GoodsDTO> getAllGoods(String searchTerm, String categoryName) {
-        List<Goods> products;
-        if (searchTerm != null && !searchTerm.isEmpty()) {
-            products = goodsRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm);
-        } else if (categoryName != null) {
-            products = goodsRepository.findByCategoryContainingIgnoreCase(categoryName);
-        } else {
-            products = goodsRepository.findAll();
-        }
-        return products.stream().map(this::toDTO).toList();
+    public List<GoodsDTO> getAllGoods() {
+        Long userId = getCurrentUserId(); 
+        List<Goods> goods = goodsRepository.findByVendorId(userId);
+        return goods.stream().map(this::toDTO).toList();
+    }
+    
+    //get goods for Admin.
+    public List<GoodsDTO> getByVendorId(Long vendorId){
+    	List<Goods> goods = goodsRepository.findByVendorId(vendorId);
+    	return goods.stream().map(this::toDTO).toList();
     }
     
     @PreAuthorize("hasRole('VENDOR')")
@@ -66,16 +71,25 @@ public class GoodsService {
     }
 
     // Delete product (vendor only)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('VENDOR')")
     @Transactional
     public void deleteGoods(Long id) {
     	goodsRepository.deleteById(id);
+    }
+    
+ // Get current user ID
+    private Long getCurrentUserId() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username)
+                .map(User::getId)
+                .orElseThrow(() -> new IllegalStateException("User not found"));
     }
 
     // Convert entity to DTO
     private GoodsDTO toDTO(Goods goods) {
     	GoodsDTO dto = new GoodsDTO();
         dto.setId(goods.getId());
+        dto.setVendorId(goods.getVendorId());
         dto.setName(goods.getName());
         dto.setDescription(goods.getDescription());
         dto.setPrice(goods.getPrice());
@@ -88,6 +102,7 @@ public class GoodsService {
     
     private Goods toEntity(GoodsDTO dto) {
     	Goods goods = new Goods();
+    	goods.setVendorId(getCurrentUserId());
     	goods.setName(dto.getName());
     	goods.setDescription(dto.getDescription());
     	goods.setPrice(dto.getPrice());
@@ -100,6 +115,7 @@ public class GoodsService {
 
     // Update entity from DTO
     private void updateGoodsFromDTO(Goods goods, GoodsDTO dto) {
+    	goods.setVendorId(dto.getVendorId());
     	goods.setName(dto.getName());
     	goods.setDescription(dto.getDescription());
     	goods.setPrice(dto.getPrice());

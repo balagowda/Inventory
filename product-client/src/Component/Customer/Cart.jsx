@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Styles/cart.css'; 
-import Navbar from './Navbar';
+import '../../Styles/cart.css'; 
+import Navbar from '../Navbar';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
@@ -18,7 +18,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCartData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/carts/view', {
+        const response = await axios.get('/api/carts/view', {
           headers: getAuthHeader(),
         });
 
@@ -43,7 +43,7 @@ const Cart = () => {
     if (newQuantity < 1) return; // Prevent quantity < 1
     try {
       await axios.put(
-        `http://localhost:8080/api/carts/update/${cartItemId}`,
+        `/api/carts/update/${cartItemId}`,
         {
           product,
           quantity: newQuantity,
@@ -69,7 +69,7 @@ const Cart = () => {
     console.log("Removing item with ID:", cartItemId);
     
     try {
-      await axios.delete(`http://localhost:8080/api/carts/delete/${cartItemId}`, {
+      await axios.delete(`/api/carts/delete/${cartItemId}`, {
         headers: getAuthHeader(),
       });
       setCartItems((prev) => prev.filter((item) => item.id !== cartItemId));
@@ -95,7 +95,7 @@ const Cart = () => {
         <div className="cart-header">
           <h2 className="cart-title">Your Cart</h2>
           <div className="cart-total">Total: ₹{totalPrice}</div>
-          <Link to="/order/address" className="order-button">
+          <Link to="/user/order/address" className="order-button">
             Order
           </Link>
         </div>

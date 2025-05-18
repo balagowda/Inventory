@@ -67,6 +67,7 @@ public class ProductService {
     private ProductDTO toDTO(Product product) {
         ProductDTO dto = new ProductDTO();
         dto.setId(product.getId());
+        dto.setVendorId(product.getVendorId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
@@ -79,6 +80,7 @@ public class ProductService {
 
     // Update entity from DTO
     private void updateProductFromDTO(Product product, ProductDTO dto) {
+    	product.setVendorId(dto.getVendorId());
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());

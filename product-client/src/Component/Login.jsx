@@ -13,7 +13,7 @@ const Login = () => {
   setError("");
 
   try {
-    const response = await axios.post("http://localhost:8080/api/login", {
+    const response = await axios.post("/api/login", {
       username,
       password,
     }, {
@@ -31,7 +31,7 @@ const Login = () => {
       //console.log(role);
       
       // Redirect to home
-      const route = role === "ADMIN" ? "/admin" : role === "CUSTOMER" ? "/home" : "/vendor";
+      const route = role === "ADMIN" ? "/admin" : role === "CUSTOMER" ? "/user" : "/vendor";
       navigate(route);
     } else {
       setError("Unexpected response from server");

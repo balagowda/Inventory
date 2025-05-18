@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from './Navbar';
-import '../Styles/addproduct.css';
+import Navbar from '../Navbar';
+import '../../Styles/addproduct.css';
 
 const Add = () => {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +20,7 @@ const Add = () => {
   const [editingIndex, setEditingIndex] = useState(null);
 
   const categories = ['Electronics', 'Audio', 'Footwear', 'Stationery', 'Kitchenware'];
-  const productStatuses = ['AVAILABLE', 'OUTOFSTOCK'];
+  const goodsStatus = ['AVAILABLE', 'OUTOFSTOCK'];
 
   const getAuthHeader = () => {
     const token = localStorage.getItem('token');
@@ -97,7 +97,7 @@ const Add = () => {
       price: product.price.toString(),
       stockQuantity: product.stockQuantity.toString(),
       category: product.category,
-      goodsStatus: product.productStatus,
+      goodsStatus: product.goodsStatus,
       imageUrl: product.imageUrl,
     });
     setEditingIndex(index);
@@ -111,7 +111,7 @@ const Add = () => {
   const handlePublish = async () => {
     try {
         //console.log('Publishing products:', products);
-      await axios.post('http://localhost:8080/api/goods/add', products, {
+      await axios.post('/api/goods/add', products, {
         headers: getAuthHeader(),
       });
       setProducts([]);
@@ -242,12 +242,12 @@ const Add = () => {
                     <label htmlFor="productStatus">Product Status</label>
                     <select
                       id="productStatus"
-                      name="productStatus"
+                      name="goodsStatus"
                       value={formData.goodsStatus}
                       onChange={handleInputChange}
                       className={errors.productStatus ? 'input-error' : ''}
                     >
-                      {productStatuses.map((status) => (
+                      {goodsStatus.map((status) => (
                         <option key={status} value={status}>
                           {status}
                         </option>
@@ -298,7 +298,7 @@ const Add = () => {
                       <td>
                         <img src={product.imageUrl} alt={product.name} className="product-image-add" />
                       </td>
-                      <td>{product.productStatus}</td>
+                      <td>{product.goodsStatus}</td>
                       <td>
                         <button className="edit-btn" onClick={() => handleEdit(index)}>
                           Edit

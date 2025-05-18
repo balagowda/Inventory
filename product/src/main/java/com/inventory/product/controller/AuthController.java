@@ -64,7 +64,7 @@ public class AuthController {
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
+            //String token = authHeader.substring(7);
             // For state less JWT, simply instruct client to delete token
             return ResponseEntity.ok("Logged out successfully");
         } else {

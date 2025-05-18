@@ -10,7 +10,9 @@ import com.inventory.product.dto.UserDTO;
 import com.inventory.product.entity.User;
 import com.inventory.product.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -47,6 +49,11 @@ public class UserService {
     
     public Optional<UserDTO> getUserById(Long id){
     	return userRepository.findById(id).map(this::toDTO);
+    }
+    
+    public List<UserDTO> getVendors(){
+    	List<User> vendors = userRepository.findByRole(User.Role.VENDOR);
+    	return vendors.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     // Update user profile
