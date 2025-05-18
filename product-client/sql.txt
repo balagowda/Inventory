@@ -1,0 +1,44 @@
+//Address Insertion
+INSERT INTO addresses (id, user_id, postal_code, city, country, state, street) VALUES
+(1, 1, '560001', 'Bangalore', 'India', 'Karnataka', 'MG Road'),
+(2, 2, '10001', 'New York', 'USA', 'New York', '5th Avenue'),
+(3, 3, 'WC2N', 'London', 'UK', 'Greater London', 'Trafalgar Square'),
+(4, 3, '560001', 'Bangalore', 'India', 'Karnataka', 'MG Road'),
+(5, 3, '10001', 'New York', 'USA', 'New York', '5th Avenue'),
+(6, 3, '560066', 'Bengaluru', 'India', 'Karnatak', 'Church street');
+
+//Insertion for goods
+INSERT INTO goods (
+  id, goods_category, goods_created_at, goods_description, goods_image_url,
+  goods_name, goods_price, product_status, goods_stock, goods_updated_at,
+  goods_status, vendor_id
+) VALUES
+(1, 'Electronics', '2025-05-17 20:26:42.000000', 'High-quality noise-cancelling headphones', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Noise Cancelling Headphones', 199.99, 'AVAILABLE', 35, '2025-05-19 00:52:00.137118', 'AVAILABLE', 5),
+(2, 'Books', '2025-05-17 20:26:42.000000', 'A thrilling sci-fi novel set in the distant future', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Galactic Odyssey', 14.99, 'AVAILABLE', 100, '2025-05-18 23:22:39.943671', 'AVAILABLE', 5),
+(3, 'Clothing', '2025-05-17 20:26:42.000000', 'Comfortable cotton T-shirt for daily wear', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Basic Cotton T-Shirt', 9.99, 'AVAILABLE', 265, '2025-05-18 23:22:39.944337', 'AVAILABLE', 5),
+(4, 'Kitchen', '2025-05-17 20:26:42.000000', 'Stainless steel knife set, 5 pieces', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Knife Set', 49.95, 'BLOCK', 1, '2025-05-19 00:32:37.418662', 'BLOCK', 5),
+(5, 'Fitness', '2025-05-17 20:26:42.000000', 'Adjustable dumbbells for home workouts', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Adjustable Dumbbells', 89.50, 'OUTOFSTOCK', 0, '2025-05-17 20:26:42.000000', 'OUTOFSTOCK', 5),
+(6, 'Electronics', '2025-05-17 23:58:10.103416', 'Power full mouse that moves Fast', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Wireless Mouse', 350.00, 'AVAILABLE', 10, '2025-05-19 00:32:37.419880', 'AVAILABLE', 5),
+(7, 'Electronics', '2025-05-18 16:07:31.599745', 'Powerful Mouse for Gaming and designing', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'Wireless Mouse', 699.99, 'AVAILABLE', 34, '2025-05-18 23:19:25.237268', 'AVAILABLE', 5);
+
+//Insert for Products 
+INSERT INTO products (
+  price, stock_quantity, created_at, id, updated_at, name, description,
+  category, image_url, product_status, vendor_id
+) VALUES
+(499.99, 150, '2025-05-09 00:00:00.000000', 1, '2025-05-18 15:51:22.041353', 'Wireless Mouse', 'Ergonomic wireless mouse with USB receiver', 'Electronics', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'AVAILABLE', 5),
+(1499.00, 48, '2025-05-09 00:00:00.000000', 2, '2025-05-16 23:51:38.646500', 'Bluetooth Speaker', 'Portable Bluetooth speaker with long battery life', 'Audio', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'AVAILABLE', 5),
+(2999.00, 26, '2025-05-09 00:00:00.000000', 3, '2025-05-16 23:51:38.643874', 'Running Shoes', 'Comfortable running shoes for men and women', 'Footwear', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'AVAILABLE', 5),
+(49.50, 194, '2025-05-09 00:00:00.000000', 4, '2025-05-16 23:51:38.645172', 'Notebook', 'A5 size 160-page ruled notebook', 'Stationery', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'AVAILABLE', 5),
+(199.00, 69, '2025-05-09 00:00:00.000000', 5, '2025-05-16 23:51:38.645890', 'Coffee Mug', 'Ceramic mug with motivational quote', 'Kitchenware', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRue2sWNCwaJd-yZ4TzMKHsNRqoDIQwz3azYA&s', 'AVAILABLE', 5);
+
+//Insrtion for Users
+INSERT INTO users (
+  created_at, id, phone_number, full_name, username, email, password, role
+) VALUES
+('2025-05-10 12:44:12.000000', 1, '9876543210', 'John Doe', 'johndoe', 'john.doe@example.com', '$2a$12$IAI6d7iTNPk7ZaR4OxWpZeRAtgh.asxiyF6wVAbugJ.X4F6uTc9HW', 'CUSTOMER'),
+('2025-05-10 12:44:58.000000', 2, '9876543410', 'Ram Deep', 'ramdeep', 'ram.deep@example.com', '$2a$12$IAI6d7iTNPk7ZaR4OxWpZeRAtgh.asxiyF6wVAbugJ.X4F6uTc9HW', 'ADMIN'),
+('2025-05-11 22:15:06.305208', 3, '7619476485', 'Ravi Varma', 'raviverma', 'ravi.varma@gmail.com', '$2a$10$rhFUp14Wtar3SRBZGqIs8elVE0ymqnqg7jCDxLL0JSt2jBg8R0fSy', 'CUSTOMER'),
+('2025-05-11 22:20:21.614117', 4, '6783245879', 'Raja Varma', 'rajaverma', 'raja.verma@gmail.com', '$2a$10$I2ba7QH5UNMyTlItT6hPuOyH6FMrMQqSqRDOeza02dN/IAjBcSV2e', 'CUSTOMER'),
+('2025-05-17 20:51:37.000000', 5, '9876543210', 'Ram Kumar', 'ramkumar', 'ram.kumar@example.com', '$2a$12$racSr0yvTzagbkYvcXtYa.bIvD75c8F4540xXs4B9tB5c9h.U1N0u', 'VENDOR'),
+('2025-05-17 21:04:41.095894', 6, '9483595019', 'RaviKumar', 'ravikumar', 'ravi.kumar@gmail.com', '$2a$10$HK7nRMIQOZNuPrZu4ni69uLGT1oo0F9HQE9PyJ8KRSxstw8j5EMkG', 'CUSTOMER');
