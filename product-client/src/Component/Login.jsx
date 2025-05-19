@@ -40,8 +40,8 @@ const Login = () => {
     if (err.response && err.response.status === 401) {
       setError("Invalid username or password");
     } else {
-      console.error("Login error:", err);
-      setError("Server error. Please try again later.");
+      console.log("Error:", err);
+      setError(err.response.data.error|| "An error occurred during login");
     }
   }
 };

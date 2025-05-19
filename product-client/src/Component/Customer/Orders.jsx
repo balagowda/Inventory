@@ -25,7 +25,8 @@ const Order = () => {
         if (response.status !== 200) {
           throw new Error('Failed to fetch orders');
         }
-
+        console.log('Orders fetched successfully:', response.data);
+        
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -66,6 +67,31 @@ const Order = () => {
       .toFixed(2);
   };
 
+  const handleCancelOrder = async (orderId) => {
+    const confirmCancel = window.confirm(
+      'Are you sure you want to cancel this order?'
+    );
+    if (!confirmCancel) return;
+
+    try {
+      const response = await axios.delete(`/api/orders/cancel/${orderId}`, {
+        headers: getAuthHeader(),
+      });
+
+      if (response.status === 204) {
+        setOrders((prevOrders) =>
+          prevOrders.filter((order) => order.id !== orderId)
+        );
+      } else {
+        throw new Error('Failed to cancel order');
+      }
+      console.log('Order canceled successfully');
+      
+    } catch (error) {
+      console.error('Error canceling order:', error);
+    }
+  }
+
   return (
     <div className="order-container">
       <div className="navbar-container">
@@ -92,7 +118,9 @@ const Order = () => {
               <div key={order.id} className="order-row">
                 <div className="order-content">
                   <div
-                    className={`order-left ${expandedOrder === order.id ? 'hidden' : ''}`}
+                    className={`order-left ${
+                      expandedOrder === order.id ? "hidden" : ""
+                    }`}
                   >
                     <div className="order-images">
                       {order.orderItems.map((item) => (
@@ -107,26 +135,52 @@ const Order = () => {
                   </div>
                   <div className="order-right">
                     <div className="order-details">
-                      <span>Ordered On: {new Date(order.orderDate).toLocaleDateString()}</span>
+                      <span>
+                        Ordered On:{" "}
+                        {new Date(order.orderDate).toLocaleDateString()}
+                      </span>
                       <span>Status: {order.status}</span>
-                      <span className="total-price">Total: ₹{calculateOrderTotal(order)}</span>
+                      <span className="total-price">
+                        Total: ₹{calculateOrderTotal(order)}
+                      </span>
                     </div>
                     <button
                       className="expand-btn"
                       onClick={() => toggleExpand(order.id)}
-                      aria-label={expandedOrder === order.id ? 'Collapse order' : 'Expand order'}
+                      aria-label={
+                        expandedOrder === order.id
+                          ? "Collapse order"
+                          : "Expand order"
+                      }
                     >
                       <span
-                        className={`chevron ${expandedOrder === order.id ? 'chevron-up' : 'chevron-down'}`}
+                        className={`chevron ${
+                          expandedOrder === order.id
+                            ? "chevron-up"
+                            : "chevron-down"
+                        }`}
                       />
                     </button>
-                    <button
-                      className="invoice-btn"
-                      onClick={() => showInvoice(order.id)}
-                      aria-label="View invoice"
-                    >
-                      Invoice
-                    </button>
+                    <div className="action-button-container">
+                      {order.status !== "CANCELLED" && (
+                        <button
+                          className="invoice-btn"
+                          onClick={() => showInvoice(order.id)}
+                          aria-label="View invoice"
+                        >
+                          Invoice
+                        </button>
+                      )}
+                      {(order.status === "PENDING" ||
+                        order.status === "PROCESSING") && (
+                        <button
+                          className="cancel-order-btn"
+                          onClick={() => handleCancelOrder(order.id)}
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
                 {expandedOrder === order.id && (
@@ -139,7 +193,9 @@ const Order = () => {
                           className="product-image-order"
                         />
                         <div className="item-details">
-                          <span className="product-name">{item.product.name}</span>
+                          <span className="product-name">
+                            {item.product.name}
+                          </span>
                           <span>Quantity: {item.quantity}</span>
                           <span>Unit Price: ₹{item.unitPrice.toFixed(2)}</span>
                         </div>
@@ -163,7 +219,10 @@ const Order = () => {
                       <h2 className="invoice-title">Inventory System</h2>
                       <h3 className="invoice-subtitle">Bill</h3>
                       <div className="invoice-details">
-                        <p>Ordered On: {new Date(order.orderDate).toLocaleDateString()}</p>
+                        <p>
+                          Ordered On:{" "}
+                          {new Date(order.orderDate).toLocaleDateString()}
+                        </p>
                       </div>
                       <table className="invoice-table">
                         <thead>
@@ -188,7 +247,10 @@ const Order = () => {
                       <div className="invoice-grand-total">
                         <p>Grand Total: ₹{calculateOrderTotal(order)}</p>
                       </div>
-                      <button className="invoice-close-btn" onClick={closeInvoice}>
+                      <button
+                        className="invoice-close-btn"
+                        onClick={closeInvoice}
+                      >
                         Close
                       </button>
                     </div>

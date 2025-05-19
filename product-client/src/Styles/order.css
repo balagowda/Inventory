@@ -180,6 +180,13 @@
   font-size: 16px;
 }
 
+.action-button-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
 .invoice-btn {
   padding: 5px 10px;
   background-color: #007bff;
@@ -193,6 +200,20 @@
 
 .invoice-btn:hover {
   background-color: #0056b3;
+}
+
+.cancel-order-btn{
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cancel-order-btn:hover {
+  background-color: #c82333;
 }
 
 .invoice-overlay {

@@ -49,7 +49,7 @@ public class OrderController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAnyRole('CUSTOMER','VENDOR')")
+    @PreAuthorize("hasAnyRole('CUSTOMER')")
     public ResponseEntity<List<OrderDTO>> getUserOrder() {
         List<OrderDTO> updatedOrder = orderService.getUserOrders();
         return ResponseEntity.ok(updatedOrder);
@@ -101,7 +101,7 @@ public class OrderController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/cancel/{id}")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);

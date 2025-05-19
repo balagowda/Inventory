@@ -203,7 +203,7 @@ const BuyfromVendors = () => {
                         <img
                           src={product.imageUrl}
                           alt={product.name}
-                          className="product-image"
+                          className="product-image-buy"
                         />
                       </td>
                       <td>{product.goodsStatus}</td>

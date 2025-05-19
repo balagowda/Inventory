@@ -18,6 +18,7 @@ import com.inventory.product.entity.Cart;
 import com.inventory.product.entity.CartItem;
 import com.inventory.product.entity.Goods;
 import com.inventory.product.entity.Order;
+import com.inventory.product.entity.Order.OrderStatus;
 import com.inventory.product.entity.OrderItem;
 import com.inventory.product.entity.Product;
 import com.inventory.product.entity.User;
@@ -33,7 +34,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -168,10 +171,32 @@ public class OrderService {
     //Delete user oder
     public void deleteOrder(Long id) {
     	Long userId = getCurrentUserId();
-    	orderRepository.findById(id)
-    		.filter(order->order.getUser().getId().equals(userId))
-    		.ifPresent(orderRepository::delete);
+    	Optional<Order> userOrder = orderRepository.findById(id)
+    		.filter(order->order.getUser().getId().equals(userId));
     	
+    	if(userOrder.isEmpty()) throw new IllegalArgumentException("Order Not found");
+    	
+    	Order uOrder = userOrder.get();
+    	List<OrderItem> orderItems = uOrder.getOrderItems();
+    	
+    	List<Product> products = productRepository.findAll();
+
+        // Map product names to the actual product for quick lookup and update
+        Map<String, Product> productMap = products.stream()
+            .collect(Collectors.toMap(Product::getName, Function.identity(), (a, b) -> a));
+        
+        for(OrderItem item: orderItems) {
+        	Product currentItem = item.getProduct();
+        	Integer quantity = item.getQuantity();
+        	
+        	if(productMap.containsKey(currentItem.getName())) {
+        		Product product = productMap.get(currentItem.getName());
+        		product.setStockQuantity(product.getStockQuantity() + quantity);
+        	}
+        }
+        uOrder.setStatus(Order.OrderStatus.CANCELLED);
+        orderRepository.save(uOrder);
+        productRepository.saveAll(productMap.values());
     }
 
     // Get order details
@@ -194,9 +219,44 @@ public class OrderService {
     @PreAuthorize("hasRole('VENDOR')")
     @Transactional
     public Optional<BuyOrderDTO> updateVendorOrderStatus(Long id, BuyOrder.BuyOrderStatus status) {
-        return buyOrderRepository.findById(id).map(order -> {
+       return buyOrderRepository.findById(id).map(order -> {
             order.setStatus(status);
             order = buyOrderRepository.save(order);
+            
+            if (status == BuyOrder.BuyOrderStatus.DELIVERED) {
+                List<Product> products = productRepository.findAll();
+
+                // Map product names to the actual product for quick lookup and update
+                Map<String, Product> productMap = products.stream()
+                    .collect(Collectors.toMap(Product::getName, Function.identity(), (a, b) -> a));
+
+                List<BuyOrderItem> items = order.getOrderItems();
+
+                for (BuyOrderItem item : items) {
+                    Goods currentItem = item.getGoods();
+                    int itemQuantity = item.getQuantity();
+
+                    if (productMap.containsKey(currentItem.getName())) {
+                        // Product exists — update stock
+                        Product existingProduct = productMap.get(currentItem.getName());
+                        existingProduct.setStockQuantity(existingProduct.getStockQuantity() + itemQuantity);
+                    } else {
+                        // Product doesn't exist — create new
+                        Product newProduct = new Product();
+                        newProduct.setVendorId(currentItem.getVendorId());
+                        newProduct.setName(currentItem.getName());
+                        newProduct.setDescription(currentItem.getDescription());
+                        newProduct.setPrice(currentItem.getPrice());
+                        newProduct.setStockQuantity(itemQuantity);
+                        newProduct.setCategory(currentItem.getCategory());
+                        newProduct.setImageUrl(currentItem.getImageUrl());
+                        newProduct.setProductStatus(Product.ProductStatus.AVAILABLE);
+                        productMap.put(currentItem.getName(), newProduct);
+                    }
+                }
+                productRepository.saveAll(productMap.values());
+            }
+            
             return toBuyOrderDTO(order);
         });
     }
