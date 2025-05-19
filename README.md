@@ -64,69 +64,6 @@ Node.js (v18.x or later)
 Maven (for backend build)
 Git (version control)
 
-
-
-Project Structure
-inventory-system/
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Add.jsx              # Component for adding products
-│   │   │   ├── BuyfromVendor.jsx    # Component for purchasing from vendors
-│   │   │   ├── Navbar.jsx           # Reusable navigation bar
-│   │   │   └── Transaction.jsx      # Component for transaction management
-│   │   ├── css/
-│   │   │   ├── Add.css              # Styles for Add.jsx
-│   │   │   ├── BuyfromVendor.css    # Styles for BuyfromVendor.jsx
-│   │   │   └── Transaction.css      # Styles for Transaction.jsx
-│   │   ├── App.jsx                  # Main React app component
-│   │   ├── index.js                 # Entry point for React
-│   │   └── App.css                  # Global styles (if applicable)
-│   ├── package.json
-│   ├── package-lock.json
-│   └── README.md
-├── backend/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/example/inventory/
-│   │   │   │   ├── config/
-│   │   │   │   │   └── SecurityConfig.java    # Spring Security configuration
-│   │   │   │   ├── controller/
-│   │   │   │   │   ├── AuthController.java    # Handles login and JWT generation
-│   │   │   │   │   ├── ProductController.java # Handles product-related endpoints
-│   │   │   │   │   ├── VendorController.java  # Handles vendor-related endpoints
-│   │   │   │   │   └── OrderController.java   # Handles order placement
-│   │   │   │   ├── dto/
-│   │   │   │   │   ├── ProductRequestDTO.java  # DTO for incoming product data
-│   │   │   │   │   ├── ProductResponseDTO.java # DTO for product response
-│   │   │   │   │   ├── VendorDTO.java          # DTO for vendor data
-│   │   │   │   │   └── OrderRequestDTO.java    # DTO for order requests
-│   │   │   │   ├── entity/
-│   │   │   │   │   ├── Product.java            # Product entity
-│   │   │   │   │   ├── User.java               # User entity
-│   │   │   │   │   ├── Cart.java               # Cart entity
-│   │   │   │   │   └── CartItem.java           # Cart item entity
-│   │   │   │   ├── service/
-│   │   │   │   │   ├── ProductService.java     # Product business logic
-│   │   │   │   │   ├── VendorService.java      # Vendor business logic
-│   │   │   │   │   ├── OrderService.java       # Order business logic
-│   │   │   │   │   └── AuthService.java        # Authentication logic
-│   │   │   │   ├── repository/
-│   │   │   │   │   ├── ProductRepository.java  # Product JPA repository
-│   │   │   │   │   ├── UserRepository.java     # User JPA repository
-│   │   │   │   │   ├── CartRepository.java     # Cart JPA repository
-│   │   │   │   │   └── CartItemRepository.java # Cart item JPA repository
-│   │   │   │   └── exception/
-│   │   │   │       └── GlobalExceptionHandler.java # Global exception handling
-│   │   │   └── resources/
-│   │   │       └── application.properties      # Spring Boot configuration
-│   │   └── test/
-│   │       └── java/com/example/inventory/
-│   │           └── InventoryApplicationTests.java # Test class
-│   ├── pom.xml
-|____
 Setup Instructions
 Prerequisites
 
