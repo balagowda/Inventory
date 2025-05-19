@@ -22,6 +22,7 @@ import Goods from './Component/Vendor/Goods';
 import AddProduct from './Component/Vendor/AddProduct';
 import GoodsTransactions from './Component/Vendor/GoodsTransactions';
 import BuyfromVendors from './Component/Admin/BuyfromVendors';
+import UpdateProfile from './Component/UpdateProfile';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
         <Route path="/user" element={<ProtectedRoute><UserHome /></ProtectedRoute>} />
         <Route path="/user/products" element={<ProtectedRoute><Products /></ProtectedRoute>} />
         <Route path="/user/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />

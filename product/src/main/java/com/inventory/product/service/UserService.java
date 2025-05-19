@@ -64,7 +64,7 @@ public class UserService {
             user.setEmail(userDTO.getEmail());
             user.setFullName(userDTO.getFullName());
             user.setPhoneNumber(userDTO.getPhoneNumber());
-            if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
+            if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty() && !(userDTO.getPassword().length()==60)) {
                 user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             }
             user = userRepository.save(user);
@@ -86,6 +86,7 @@ public class UserService {
         dto.setFullName(user.getFullName());
         dto.setRole(user.getRole().name());
         dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setPassword(user.getPassword());
         return dto;
     }
 }

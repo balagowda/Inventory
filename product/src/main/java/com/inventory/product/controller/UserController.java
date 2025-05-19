@@ -1,6 +1,7 @@
 package com.inventory.product.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,13 @@ public class UserController {
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         UserDTO user = userService.getUserById(id).get();
         return ResponseEntity.ok(user);
+    }
+    
+    @GetMapping("/user/profile")
+    @PreAuthorize("hasAnyRole('CUSTOMER', 'ADMIN', 'VENDOR')")
+    public ResponseEntity<UserDTO> getUserProfile(){
+    	Optional<UserDTO> user = userService.getCurrentUser();
+    	return ResponseEntity.ok(user.get());
     }
     
     @GetMapping("/user/getvendors")

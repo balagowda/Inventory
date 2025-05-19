@@ -1,0 +1,311 @@
+/* Update Upprofile Container */
+.update-upprofile-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7fafc 0%, #e6f0fa 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 0;
+}
+
+/* Update Upprofile Content */
+.update-upprofile-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Update Upprofile Header */
+.update-upprofile-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.update-upprofile-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e40af;
+  letter-spacing: -0.025em;
+}
+
+/* Update Profile Section */
+.update-profile-section{
+    background: white;
+    border-radius: 12px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    /* box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); */
+}
+
+.update-profile-container {
+  padding: 2rem;
+  margin: 0 auto;
+  width: 70%;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Update Profile Icon */
+.update-profile-icon {
+  flex: 0 0 auto;
+}
+
+.update-user-icon {
+  width: 100px;
+  height: 100px;
+  color: #2563eb;
+}
+
+/* Update Profile Details */
+.update-profile-details {
+  flex: 1;
+}
+
+.update-profile-details p {
+  font-size: 1rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.update-profile-details strong {
+  color: #1e40af;
+  margin-right: 0.5rem;
+}
+
+/* Update Update Button */
+.update-update-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.update-update-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.update-update-btn:active {
+  transform: translateY(0);
+}
+
+/* Update Modal Overlay */
+.update-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Update Modal */
+.update-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+.update-modal h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Update Update Form */
+.update-update-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.update-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.update-form-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.update-form-group input {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #1f2937;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.update-form-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.update-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.update-checkbox-group label {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #1f2937;
+}
+
+.update-input-error {
+  border-color: #dc2626 !important;
+}
+
+.update-error-text {
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.update-submit-btn,
+.update-cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.update-submit-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.update-submit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.update-submit-btn:active {
+  transform: translateY(0);
+}
+
+.update-submit-btn:disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+}
+
+.update-cancel-btn {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.update-cancel-btn:hover {
+  background: #d1d5db;
+  transform: translateY(-2px);
+}
+
+.update-cancel-btn:active {
+  transform: translateY(0);
+}
+
+.update-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Update Loading Text */
+.update-loading-text {
+  text-align: center;
+  font-size: 1rem;
+  color: #4b5563;
+  margin: 2rem 0;
+}
+
+/* Update API Error */
+.update-api-error {
+  color: #dc2626;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 1.5rem 0;
+  background: #fee2e2;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .update-upprofile-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .update-upprofile-title {
+    font-size: 1.75rem;
+  }
+
+  .update-profile-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .update-user-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .update-profile-details p {
+    font-size: 0.875rem;
+  }
+
+  .update-modal {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .update-update-form {
+    gap: 1rem;
+  }
+}

@@ -10,7 +10,7 @@ function UserHome() {
       <div className="main-content">
         <h1 className="welcome-title">Welcome Back!</h1>
         <p className="welcome-message">
-          Take control of your inventory with our cutting-edge management tools. Explore the features below to get started.
+          Explore the products available Buy and manage your orders with ease.
         </p>
         <div className="action-cards">
           <Link to="/user/products" className="action-card">

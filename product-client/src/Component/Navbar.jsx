@@ -20,6 +20,7 @@ function Navbar() {
 
       if (response.status === 200) {
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
         navigate("/login");
       }
       console.log("Logout successful");
@@ -32,6 +33,9 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-brand">Inventory System</div>
       <div className="profile-container">
+        <Link to='/profile' className="home-link">
+          Profile
+        </Link>
         <Link to={route} className="home-link">
           Home
         </Link>
