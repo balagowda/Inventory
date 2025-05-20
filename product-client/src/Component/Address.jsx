@@ -78,7 +78,7 @@ const Address = () => {
 
       const orderData = await response.data;
       // Redirect to payment page with total amount
-      navigate("/order/payment", { state: { totalAmount:orderData.totalAmount, orderId:orderData.id } });
+      navigate("/user/order/payment", { state: { totalAmount:orderData.totalAmount, orderId:orderData.id } });
     } catch (error) {
       console.error("Error placing order:", error);
       alert("Failed to place order. Please try again.");
